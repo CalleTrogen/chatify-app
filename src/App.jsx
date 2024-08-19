@@ -14,7 +14,6 @@ function App() {
         Please click the button below to open the side menu.
       </h3>
       <Navbar />
-      {/* <Register /> */}
     </>
     
     

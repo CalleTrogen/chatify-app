@@ -39,7 +39,7 @@ function Register() {
                 </svg>
                 <input type="password" className="grow" value="password" />
             </label>
-                <button className="bg-fff-50 hover:bg-blue-700 text-white font-bold py-2 px-4 mt-10">Register</button>
+                <button className="hover:bg-blue-700 text-white font-bold py-2 px-4 mt-10">Register</button>
         </>
     )
 }
