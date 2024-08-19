@@ -1,5 +1,6 @@
 import './App.css'
 import Navbar from './comp/Navbar'
+import Register from './comp/Register'
 
 function App() {
 
