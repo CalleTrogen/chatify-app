@@ -1,7 +1,17 @@
 function Register() {
+
+    //Hämtar csrf token 
+    useEffect(() => {
+        fetch('https://chatify-api.up.railway.app/csrf', {
+            method: 'PATCH',
+        })
+            .then(res => res.json())
+            .then(data => setCsrfToken(data.csrfToken))
+    }, []);
+
     return (
         <>
-        <h2 className="text-white">Register new user</h2>
+            <h2 className="text-white">Register new user</h2>
             <label className="input input-bordered flex items-center gap-2">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -39,7 +49,7 @@ function Register() {
                 </svg>
                 <input type="password" className="grow" value="password" />
             </label>
-                <button className="hover:bg-blue-700 text-white font-bold py-2 px-4 mt-10">Register</button>
+            <button className="hover:bg-blue-700 text-white font-bold py-2 px-4 mt-10">Register</button>
         </>
     )
 }
