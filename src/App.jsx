@@ -1,5 +1,5 @@
 import './App.css'
-import Navbar from './comp/Navbar'
+import Navbar from './comp/Navbar';
 
 function App() {
 
@@ -13,9 +13,10 @@ function App() {
         Please click the button below to open the side menu.
       </h3>
       <Navbar />
+
     </>
-    
-    
+
+
   )
 }
 
