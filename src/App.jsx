@@ -1,8 +1,8 @@
 import './App.css'
 import Navbar from './comp/Navbar';
+import Register from './comp/Register';
 
 function App() {
-
   return (
     <>
       <h1 className='text-gray-50 text-7xl font-bold'>Welcome to Chatify</h1>
@@ -13,10 +13,8 @@ function App() {
         Please click the button below to open the side menu.
       </h3>
       <Navbar />
-
+      {/* <Register /> */}
     </>
-
-
   )
 }
 
