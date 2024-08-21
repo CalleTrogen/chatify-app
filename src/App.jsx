@@ -1,19 +1,16 @@
+import { Route, Routes } from 'react-router-dom';
 import './App.css'
-import Navbar from './comp/Navbar';
+import Home from './comp/Home';
 import Register from './comp/Register';
 
 function App() {
   return (
     <>
-      <h1 className='text-gray-50 text-7xl font-bold'>Welcome to Chatify</h1>
-      <h3 className='m-10 text-xl'>
-        We're excited to have you here.
-        Whether you're catching up with friends, collaborating on a project, or meeting new people,
-        this is the place to make your conversations smooth, fun, and secure.
-        Please click the button below to open the side menu.
-      </h3>
-      <Navbar />
-      {/* <Register /> */}
+      <Routes>
+        <Route path='/' exact element={<Home />}></Route>
+        <Route path='/register' element={<Register />}></Route>
+        {/* <Route path='/login' element={<Login />}></Route> */}
+      </Routes>
     </>
   )
 }
