@@ -1,5 +1,8 @@
-function Register() {
+import { useEffect, useState } from "react";
+import { NavLink } from "react-router-dom";
 
+function Register() {
+    const [csrfToken, setCsrfToken] = useState(null);
     //Hämtar csrf token 
     useEffect(() => {
         fetch('https://chatify-api.up.railway.app/csrf', {
@@ -50,6 +53,9 @@ function Register() {
                 <input type="password" className="grow" value="password" />
             </label>
             <button className="hover:bg-blue-700 text-white font-bold py-2 px-4 mt-10">Register</button>
+            <NavLink to='/'>
+                <button className="hover:bg-blue-700 text-white font-bold py-2 px-4 mt-10">Home</button>
+            </NavLink>
         </>
     )
 }
