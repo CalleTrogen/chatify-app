@@ -3,6 +3,8 @@ import { NavLink } from "react-router-dom";
 
 function Register() {
     const [csrfToken, setCsrfToken] = useState(null);
+
+    
     //Hämtar csrf token 
     useEffect(() => {
         fetch('https://chatify-api.up.railway.app/csrf', {
@@ -14,8 +16,9 @@ function Register() {
 
     return (
         <>
-            <h2 className="text-white">Register new user</h2>
-            <label className="input input-bordered flex items-center gap-2">
+            <h1 className="text-grey-50 text-5xl mb-10 font-bold">Register new user</h1>
+            <p>Below you can register a new username. <br />Please fill in all columns.</p><br />
+            <label className="input input-bordered flex items-center gap-2 m-3">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 16 16"
@@ -26,9 +29,14 @@ function Register() {
                     <path
                         d="M15 6.954 8.978 9.86a2.25 2.25 0 0 1-1.956 0L1 6.954V11.5A1.5 1.5 0 0 0 2.5 13h11a1.5 1.5 0 0 0 1.5-1.5V6.954Z" />
                 </svg>
-                <input type="text" className="grow" placeholder="Email" />
+                <input
+                    type="text"
+                    className="grow"
+                    placeholder="Email"
+                    onFocus={(e) => e.target.value = ''}
+                />
             </label>
-            <label className="input input-bordered flex items-center gap-2">
+            <label className="input input-bordered flex items-center gap-2 m-3">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 16 16"
@@ -37,9 +45,13 @@ function Register() {
                     <path
                         d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z" />
                 </svg>
-                <input type="text" className="grow" placeholder="Username" />
+                <input type="text" 
+                className="grow" 
+                placeholder="Username" 
+                onFocus={(e) => e.target.value = ''}
+                />
             </label>
-            <label className="input input-bordered flex items-center gap-2">
+            <label className="input input-bordered flex items-center gap-2 m-3">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 16 16"
@@ -50,12 +62,16 @@ function Register() {
                         d="M14 6a4 4 0 0 1-4.899 3.899l-1.955 1.955a.5.5 0 0 1-.353.146H5v1.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-2.293a.5.5 0 0 1 .146-.353l3.955-3.955A4 4 0 1 1 14 6Zm-4-2a.75.75 0 0 0 0 1.5.5.5 0 0 1 .5.5.75.75 0 0 0 1.5 0 2 2 0 0 0-2-2Z"
                         clipRule="evenodd" />
                 </svg>
-                <input type="password" className="grow" value="password" />
+                <input type="password" 
+                className="grow" 
+                value="password" 
+                onFocus={(e) => e.target.value = ''}
+                />
             </label>
-            <button className="hover:bg-blue-700 text-white font-bold py-2 px-4 mt-10">Register</button>
             <NavLink to='/'>
-                <button className="hover:bg-blue-700 text-white font-bold py-2 px-4 mt-10">Home</button>
+                <button className="bg-blue-700 text-white font-bold py-2 px-4 mt-10">Back</button>
             </NavLink>
+            <button className="bg-blue-700 text-white font-bold py-2 px-4 mt-10 m-3">Register</button>
         </>
     )
 }
