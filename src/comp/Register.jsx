@@ -3,7 +3,6 @@ import { NavLink } from "react-router-dom";
 
 function Register() {
     const [csrfToken, setCsrfToken] = useState(null);
-
     
     //Hämtar csrf token 
     useEffect(() => {
