@@ -38,7 +38,7 @@ function Register() {
             .then(data => {
                 setJwtToken(data.token); //TODO: lägg till i localStorage eller sessionStorage.
                 console.log(data.token);
-                //TODO: Flytta rad 40 till Logga in komponenten. 
+                //TODO: Flytta rad 40 till 'Logga in' komponenten. 
             })
             .catch(err => console.error('Registration failed:', err));
     };
