@@ -15,7 +15,7 @@ function Navbar() {
                     <ul className="menu bg-base-200 text-base-content min-h-full w-80 p-4">
                         {/* Sidebar content here */}
                         <li><NavLink to='/'>Home</NavLink></li>
-                        <li><a>Log in</a></li>
+                        <li><NavLink to='/Login'>Log in</NavLink></li>
                         <li><NavLink to='/Register'>Register User</NavLink></li>
                     </ul>
                 </nav>
