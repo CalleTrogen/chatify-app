@@ -5,7 +5,7 @@ function Home() {
     return (
         <>
             <h1 className='text-gray-50 text-7xl font-bold'>
-                Welcome to <em>Chatify</em>
+                Welcome to <em>Chatify</em> 💬
             </h1>
 
             <h3 className='m-10 text-xl'>
