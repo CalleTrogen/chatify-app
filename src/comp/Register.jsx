@@ -7,6 +7,10 @@ function Register() {
     const [password, setPassword] = useState('');
     const [jwtToken, setJwtToken] = useState(null); //TODO: Flytta till 'Log in' komponenten
     const [email, setEmail] = useState('');
+    const [avatarUrl, setAvatarUrl] = useState('');
+    const avatars = Array.from({ length: 6 }, (_, index) =>
+        `https://i.pravatar.cc/150?img=${index + 1}`
+    );
 
     //Hämtar csrf token 
     useEffect(() => {
@@ -29,7 +33,7 @@ function Register() {
                 username: username,
                 password: password,
                 email: email,
-                avatar: null, //TODO: ändra detta till useState som sedan kopplas till ett inputfält eller previews av bilder.
+                avatar: avatarUrl,
                 csrfToken: csrfToken
             }),
 
@@ -98,6 +102,9 @@ function Register() {
                     onChange={(e) => setPassword(e.target.value)}
                 />
             </label>
+            {avatars.map((url, index) => (
+                <img key={index} src={url} alt={`Avatar ${index + 1}`} style={{ cursor: 'pointer' }} onClick={() => setAvatarUrl(url)} />
+            ))}
             <NavLink to='/'>
                 <button className="bg-blue-700 text-white font-bold py-2 px-4 mt-10">Back</button>
             </NavLink>
