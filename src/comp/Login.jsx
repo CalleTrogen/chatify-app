@@ -1,14 +1,37 @@
 import { useState, useEffect } from "react"
+import { NavLink } from "react-router-dom";
 
-const Login = () => {
+
+function Login() {
+
+
     return (
-        <div>
-            <h1 className="text-gray-50 text-5xl text-bold p-5">Log in</h1>
-            <p className="mb-5">Below you can log in to start chatting</p>
-            <label className="">Username:</label>
-            <input type="text" className="ml-3 bg-white rounded"></input>
-            <label className="">Password:</label>
-            <input type="text" className="ml-3 bg-white rounded"></input>
+        <div class="w-full max-w-xs">
+            <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                <h1 className="text-5xl text-gray-700">🔒 Log in</h1><br></br>
+                <p className="text-gray-700">Welcome! Please put in your log in information below.</p><br></br>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
+                        👤 Username
+                    </label>
+                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="Username"></input>
+                </div>
+                <div class="mb-6">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
+                        🔑 Password
+                    </label>
+                    <input class="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" placeholder="**********"></input>
+
+                </div>
+                <div class="flex items-center justify-between">
+                    <NavLink to='/'>
+                        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4">Back</button>
+                    </NavLink>
+                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
+                        Sign In
+                    </button>
+                </div>
+            </form>
         </div>
     )
 }
