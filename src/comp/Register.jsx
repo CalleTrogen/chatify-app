@@ -5,7 +5,6 @@ function Register() {
     const [csrfToken, setCsrfToken] = useState(null);
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [jwtToken, setJwtToken] = useState(null); //TODO: Flytta till 'Log in' komponenten
     const [email, setEmail] = useState('');
     const [avatarUrl, setAvatarUrl] = useState('');
     const avatars = Array.from({ length: 3 }, (_, index) =>
@@ -67,7 +66,6 @@ function Register() {
                         type="text"
                         className="grow"
                         placeholder="Email"
-                        /* onFocus={(e) => e.target.value = ''} */
                         onChange={(e) => setEmail(e.target.value)}
                     />
                 </label>
