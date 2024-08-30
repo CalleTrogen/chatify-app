@@ -102,7 +102,7 @@ function Register() {
                     />
                 </label>
             </div>
-            <h2 className="p-5 text-2xl">Please select an avatar below:</h2>
+            <h2 className="p-5 text-2xl">Please select an avatar:</h2>
             <div className="flex flex-row gap-x-5">
                 {avatars.map((url, index) => (
                     <img key={index} src={url} alt={`Avatar ${index + 1}`} className="cursor-pointer" onClick={() => setAvatarUrl(url)} />
