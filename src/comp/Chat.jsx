@@ -1,5 +1,8 @@
 import { NavLink } from "react-router-dom";
 
+let avatars = sessionStorage.getItem("avatars");
+let token = sessionStorage.getItem("jwt");
+
 function Chat() {
     return (
         <>
@@ -10,5 +13,8 @@ function Chat() {
         </>
     )
 }
+
+console.log(avatars);
+console.log(token);
 
 export default Chat
