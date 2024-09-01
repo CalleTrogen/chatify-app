@@ -71,9 +71,6 @@ function Login() {
                     <button onClick={handleLogin} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
                         Sign In
                     </button>
-                    {/* <button className="bg-green-500 font-bold text-black p-2">
-                        <NavLink to='/chat'>chat</NavLink>
-                    </button> */}
                 </div>
             </form>
             {isAuthed && (<h1 className="text-white font-bold">Du loggas nu in... </h1>)}
