@@ -32,18 +32,10 @@ const AuthComponent = () => {
                     </NavLink>
                 </div>
             ) : (
-                <h1>Please log in</h1>
+                <h1>Couldn't be authenticated. Please try to log in again</h1>
             )}
         </div>
     );
 };
-
-/* function Chat() {
-    return (
-        <>
-            <h1>This is Chat</h1><br />
-        </>
-    )
-} */
 
 export default AuthComponent;
