@@ -3,6 +3,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 
 
 function Login() {
+    const [jwtToken, setJwtToken] = useState(null);
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [isAuthed, setIsAuthed] = useState(false);
@@ -20,7 +21,8 @@ function Login() {
         if (response.ok) {
             const data = await response.json();
 
-            // Sparar JWT i sessionStorage
+            // Sparar JWT i state & sessionStorage
+            setJwtToken(data.token);
             sessionStorage.setItem('jwt', data.token);
             setIsAuthed(true);
 
@@ -34,7 +36,6 @@ function Login() {
         }
     };
 
-    const [jwtToken, setJwtToken] = useState(null);
 
     return (
         <div className="w-full max-w-xs">

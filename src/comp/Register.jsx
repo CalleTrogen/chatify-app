@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 function Register() {
     const [csrfToken, setCsrfToken] = useState(null);
@@ -10,6 +10,7 @@ function Register() {
     const avatars = Array.from({ length: 3 }, (_, index) =>
         `https://i.pravatar.cc/150?img=${index + 1}`
     );
+    const navigate = useNavigate();
 
     //Hämtar csrf token 
     useEffect(() => {
@@ -39,9 +40,12 @@ function Register() {
         })
             .then(res => res.json())
             .then(data => {
-                setJwtToken(data.token); //TODO: lägg till i localStorage eller sessionStorage.
-                console.log(data.token);
-                //TODO: Flytta rad 40 till 'Logga in' komponenten. 
+                if (data) {
+                    // TODO: Visa ett meddelande om lyckad registrering
+                    setTimeout(() => {
+                        navigate('/login');
+                    }, 2000);
+                }
             })
             .catch(err => console.error('Registration failed:', err));
     };
