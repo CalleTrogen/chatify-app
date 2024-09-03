@@ -2,6 +2,8 @@ import { NavLink } from "react-router-dom";
 import Register from "./Register";
 
 function Navbar() {
+    /* const [isAuthenticated, setIsAuthenticated] = useState(false); */
+
     return (
         <div className="drawer">
             <input id="my-drawer" type="checkbox" className="drawer-toggle" />

@@ -3,6 +3,8 @@ import './App.css'
 import Home from './comp/Home';
 import Register from './comp/Register';
 import Login from './comp/Login';
+import Chat from './comp/Chat';
+import ProtectedRoute from './comp/ProtectedRoute';
 
 function App() {
   return (
@@ -11,6 +13,9 @@ function App() {
         <Route path='/' exact element={<Home />}></Route>
         <Route path='/register' element={<Register />}></Route>
         <Route path='/login' element={<Login />}></Route>
+        <Route element={<ProtectedRoute />}>
+          <Route path='/chat' element={<Chat />}></Route>
+        </Route>
       </Routes>
     </>
   )
