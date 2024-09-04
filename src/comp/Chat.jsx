@@ -57,16 +57,15 @@ const AuthComponent = () => {
                 <div>
                     {avatarUrl && <img src={avatarUrl} alt="User Avatar" className="object-content h-30 w-20 inline-block rounded mb-5" />}
                     <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">Welcome {username} </h1>
-                    <p className="mb-6 text-lg font-normal text-green-500 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400">You are authenticated. Below you can read your chat history</p>
-                    <div>
-                    </div>
+                    <h2 className="mb-6 text-lg font-normal text-green-500 lg:text-xl sm:px-16 xl:px-48">You are authenticated!</h2>
+                    <p className="text-gray-300 text-xl mb-5">Below you can read your chat history.</p>
                 </div>
             ) : (
-                <h1>Couldn't be authenticated. Please try to log in again</h1>
+                <h1>Couldn't be authenticated. Please try to log in again.</h1>
             )}
             {fakeChat.map((msg, index) => (
                 <div key={index}>
-                    <img src={msg.avatar} alt={`${msg.username}'s avatar`} className="object-content h-30 w-10 inline-block rounded-5 p-2" />
+                    <img src={msg.avatar} alt={`${msg.username}'s avatar`} className="object-content h-30 w-10 inline-block rounded-full p-2" />
                     <strong>{msg.username}:</strong> {msg.text}
                 </div>
             ))}
