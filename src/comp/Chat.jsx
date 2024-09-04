@@ -1,6 +1,8 @@
 import { NavLink } from "react-router-dom";
 import React, { useState, useEffect } from 'react';
 
+/* const [fakeChat, setFakeChat] = useState(''); */
+
 const AuthComponent = () => {
     const [jwt, setJwt] = useState('');
     const [avatarUrl, setAvatarUrl] = useState('');
@@ -23,6 +25,26 @@ const AuthComponent = () => {
         }
     }, []);
 
+    /* const [fakeChat, setFakeChat] = useState([
+    {
+            "text": "Hej, hur är läget?",
+            "avatar": "",
+            "username": "Johnny",
+            "conversationId": null
+        },
+        {
+            "text": "Det är bra med mig. Hur är det själv?",
+            "avatar": "",
+            "username": "Johnny",
+            "conversationId": null
+        },
+        {
+            "text": "Bara bra här",
+            "avatar": "",
+            "username": "Johnny",
+            "conversationId": null
+        }
+    ]); */
 
     return (
         <div>
@@ -40,7 +62,13 @@ const AuthComponent = () => {
             ) : (
                 <h1>Couldn't be authenticated. Please try to log in again</h1>
             )}
-
+            {/*  {fakeChat.map((chat, index) => (
+                <div key={index} style={{ border: '1px solid #ccc', padding: '10px', marginBottom: '10px' }}>
+                    <img src={chat.avatar} alt="Avatar" style={{ width: '50px', height: '50px', borderRadius: '50%' }} />
+                    <h4>{setFakeChat.username}</h4>
+                    <p>{chat.text}</p>
+                </div>
+            ))} */}
         </div>
 
     );
