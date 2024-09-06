@@ -76,32 +76,38 @@ const AuthComponent = () => {
             ) : (
                 <h1>Couldn't be authenticated. Please try to log in again.</h1>
             )}
-            <h2 className="flex item-start space-x-4 mb-5 text-base">Message history:</h2>
+            <h2 className="flex items-start space-x-4 mb-5 text-base">Message history:</h2>
             {fakeChat.map((msg, index) => (
-                <div key={index} className="flex item-start space-x-4 p-1">
+                <div key={index} className="flex items-start space-x-4 p-1 w-1/2">
                     <img src={msg.avatar} alt={`${msg.username}'s avatar`} className="w-6 h-6 rounded-full" />
                     <strong>{msg.username}:&nbsp;</strong> {msg.text}
                 </div>
             ))}
-            <div className="space-y-4">
+            <h2 className="flex text-base justify-end w-1/2">Your messages:</h2>
+            <div className="space-y-4 w-1/2">
                 {messages.length > 0 ? (
                     messages.map((msg, index1) => (
-                        <div key={index1} className="flex items-start space-x-4">
-                            <div className="max-w-xs p-3 rounded-lg bg-gray-100">
-                                <strong className="text-lg text-gray-500">{decodedJwt.user}:<img src={decodedJwt.avatar} className="w-8 h-8 float-right" /></strong>
+                        <div key={index1} className="flex justify-end space-x-4">
+                            <div className="max-w-xs p-4 rounded-lg bg-gray-100 flex flex-row space-x-2">
+                                <strong className="text-lg text-gray-500">{decodedJwt.user}:<img src={decodedJwt.avatar} className="w-6 h-6 float-left rounded-full" /></strong>
                                 <p className="text-gray-700">{msg.text}</p>
                             </div>
                         </div>
                     ))
                 ) : (
-                    <></>
+                    <label className="form-control w-full max-w-xs">
+                        <div className="label items-center">
+                            <span className="label-text">New Message</span>
+                        </div>
+                        <input type="text" placeholder="Type your message here" className="input input-bordered w-full max-w-xs" />
+                        <div className="label justify-end">
+                            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mt-3">Submit</button>
+                        </div>
+                    </label>
                 )}
             </div>
             <NavLink to='/' className="p-5">
                 <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mt-5">Back</button>
-            </NavLink>
-            <NavLink to="*">
-                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mt-5 p-5">New message</button>
             </NavLink>
         </div >
     );
