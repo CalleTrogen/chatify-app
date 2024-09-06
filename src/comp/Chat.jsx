@@ -64,6 +64,24 @@ const AuthComponent = () => {
         }
     };
 
+    // Skicka nytt meddelande 
+    /* const [newMessage, setNewMessage] = useState([]);
+    const sendMessage = async () => {
+        if (!newMessage.trim()) return;
+
+        try {
+            const response = await fetch(``, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: 'Bearer ' + jwt
+                },
+                body: JSON.stringify({
+                    text: newMessage,
+                }),
+            }); */
+
+
     return (
         <div>
             {isAuthed ? (
