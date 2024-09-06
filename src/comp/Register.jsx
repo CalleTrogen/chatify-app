@@ -52,7 +52,7 @@ function Register() {
 
     return (
         <>
-            <div className="container w-8/12 mx-auto">
+            <div className="container w-6/12 mx-auto">
                 <h1 className="text-grey-50 text-5xl mb-10 font-bold">Register new user</h1>
                 <p>Below you can register a new username. Please fill in all columns.</p>
                 <label className="input input-bordered flex items-center gap-2 m-3" >
@@ -107,7 +107,7 @@ function Register() {
                 </label>
             </div>
             <h2 className="p-5 text-2xl">Please select an avatar:</h2>
-            <div className="flex flex-row gap-x-5">
+            <div className="flex flex-row gap-x-5 justify-center">
                 {avatars.map((url, index) => (
                     <img key={index} src={url} alt={`Avatar ${index + 1}`} className="cursor-pointer" onClick={() => setAvatarUrl(url)} />
                 ))}
