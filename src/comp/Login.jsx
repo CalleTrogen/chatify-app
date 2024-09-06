@@ -35,7 +35,7 @@ function Login() {
     };
 
     return (
-        <div className="w-full max-w-xs">
+        <div className="flex flex-row mx-auto m-auto justify-center w-6/12">
             <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
                 <h1 className="text-5xl text-gray-700">🔒 Log in</h1><br></br>
                 <p className="text-gray-700">Welcome! Please put in your log in information below.</p><br></br>
