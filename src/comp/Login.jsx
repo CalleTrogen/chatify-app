@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react"
 import { NavLink, useNavigate } from "react-router-dom";
-
+import { Alert } from 'react-bootstrap';
 
 function Login() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [isAuthed, setIsAuthed] = useState(false);
+    const [showAlert, setShowAlert] = useState(false);
     const navigate = useNavigate();
     const handleLogin = async () => {
 
@@ -23,7 +24,7 @@ function Login() {
             // Sparar JWT i sessionStorage
             sessionStorage.setItem('jwt', data.token);
             setIsAuthed(true);
-
+            setShowAlert(false);
             // Lyckad inlogg
             setTimeout(() => {
                 navigate('/chat');
@@ -31,12 +32,15 @@ function Login() {
         } else {
             // Hantera fel vid inloggning
             console.log('Log in failed');
+            setShowAlert(true);
         }
     };
 
+
+
     return (
         <div className="flex flex-row justify-center">
-            <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+            <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 mt-[20vh]">
                 <h1 className="text-5xl text-gray-700">🔒 Log in</h1><br></br>
                 <p className="text-gray-700">Welcome! Please put in your log in information below.</p><br></br>
                 <div className="mb-4">
@@ -73,7 +77,12 @@ function Login() {
                     </button>
                 </div>
             </form>
-            {isAuthed && (<h1 className="text-white font-bold">Du loggas nu in... </h1>)}
+            {isAuthed && (<h1 className="text-white font-bold mt-[30vh]">Du loggas nu in... </h1>)}
+            {showAlert && (
+                <Alert className="w-50 mx-auto" variant="danger">
+                    Username or password couldnt be found
+                </Alert>
+            )}
         </div>
     )
 }

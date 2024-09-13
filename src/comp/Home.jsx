@@ -4,7 +4,7 @@ import Navbar from './Navbar';
 function Home() {
     return (
         <>
-            <h1 className='text-gray-50 text-7xl font-bold'>
+            <h1 className='text-gray-50 text-7xl font-bold mt-[20vh]'>
                 Welcome to <em>Chatify</em> 💬
             </h1>
 
