@@ -53,7 +53,7 @@ const AuthComponent = () => {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    Authorization: 'Bearer ' + jwt
+                    Authorization: Bearer + sessionStorage.getItem('jwt')
                 },
             });
             const data = await response.json();
