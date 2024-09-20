@@ -53,7 +53,7 @@ const AuthComponent = () => {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    Authorization: Bearer + sessionStorage.getItem('jwt')
+                    Authorization: 'Bearer ' + sessionStorage.getItem('jwt')
                 },
             });
             const data = await response.json();
@@ -103,7 +103,28 @@ const AuthComponent = () => {
             ))}
             <h2 className="flex text-base justify-end w-1/2">Your messages:</h2>
             <div className="space-y-4 w-1/2">
-                {messages.length > 0 ? (
+                <div className="space-y-4 w-1/2">
+                    {messages && messages.length > 0 ? (
+                        messages.map((msg, index1) => (
+                            <div key={index1} className="flex space-x-4">
+                                <div className="max-w-xs p-4 rounded-lg bg-gray-100 flex flex-row space-x-2 items-center">
+                                    <img
+                                        src={decodedJwt?.avatar || '/default-avatar.png'}
+                                        alt="User Avatar"
+                                        className="w-6 h-6 rounded-full"
+                                    />
+                                    <strong className="text-lg text-gray-500">
+                                        {decodedJwt?.user || 'Unknown'}:
+                                    </strong>
+                                    <p className="text-gray-700">{msg.text}</p>
+                                </div>
+                            </div>
+                        ))
+                    ) : (
+                        <p>No messages found.</p>
+                    )}
+                </div>
+                {/*  {messages.length > 0 ? (
                     messages.map((msg, index1) => (
                         <div key={index1} className="flex justify-end space-x-4">
                             <div className="max-w-xs p-4 rounded-lg bg-gray-100 flex flex-row space-x-2">
@@ -111,17 +132,17 @@ const AuthComponent = () => {
                                 <p className="text-gray-700">{msg.text}</p>
                             </div>
                         </div>
-                    ))
-                ) : (
-                    <label className="form-control w-full max-w-xs">
-                        <div className="label items-center">
-                            <span className="label-text">New Message</span>
-                        </div>
-                        <input type="text" placeholder="Type your message here" className="input input-bordered w-full max-w-xs" />
-                        <div className="label justify-end">
-                            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mt-3">Submit</button>
-                        </div>
-                    </label>
+                    )) */}
+                : (
+                <label className="form-control w-full max-w-xs">
+                    <div className="label items-center">
+                        <span className="label-text">New Message</span>
+                    </div>
+                    <input type="text" placeholder="Type your message here" className="input input-bordered w-full max-w-xs" />
+                    <div className="label justify-end">
+                        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mt-3">Submit</button>
+                    </div>
+                </label>
                 )}
             </div>
             <NavLink to='/' className="p-5">
