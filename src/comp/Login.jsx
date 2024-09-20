@@ -37,8 +37,8 @@ function Login() {
     };
 
     return (
-        <div className="flex flex-row justify-center">
-            <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 mt-[20vh]">
+        <div className="flex flex-col items-center justify-center min-h-screen">
+            <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 mt-8 w-full max-w-sm">
                 <h1 className="text-5xl text-gray-700">🔒 Log in</h1><br></br>
                 <p className="text-gray-700">Welcome! Please put in your log in information below.</p><br></br>
                 <div className="mb-4">
@@ -64,7 +64,6 @@ function Login() {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}>
                     </input>
-
                 </div>
                 <div className="flex items-center justify-between">
                     <NavLink to='/'>
@@ -77,12 +76,12 @@ function Login() {
             </form>
             <>
                 {isAuthed && (
-                    <h1 className="text-white font-bold">Du loggas nu in...</h1>
+                    <h1 className="text-white font-bold -">Du loggas nu in...</h1>
                 )}
             </>
             <>
                 {showAlert && (
-                    <Alert className="w-50 mx-auto">
+                    <Alert className="bg-red-500 text-white text-center p-4 rounded shadow-md w-full max-w-sm">
                         Username or password couldn't be found
                     </Alert>
                 )}

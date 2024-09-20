@@ -124,16 +124,6 @@ const AuthComponent = () => {
                         <p>No messages found.</p>
                     )}
                 </div>
-                {/*  {messages.length > 0 ? (
-                    messages.map((msg, index1) => (
-                        <div key={index1} className="flex justify-end space-x-4">
-                            <div className="max-w-xs p-4 rounded-lg bg-gray-100 flex flex-row space-x-2">
-                                <strong className="text-lg text-gray-500">{decodedJwt.user}:<img src={decodedJwt.avatar} className="w-6 h-6 float-left rounded-full" /></strong>
-                                <p className="text-gray-700">{msg.text}</p>
-                            </div>
-                        </div>
-                    )) */}
-                : (
                 <label className="form-control w-full max-w-xs">
                     <div className="label items-center">
                         <span className="label-text">New Message</span>
@@ -143,7 +133,6 @@ const AuthComponent = () => {
                         <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mt-3">Submit</button>
                     </div>
                 </label>
-                )}
             </div>
             <NavLink to='/' className="p-5">
                 <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mt-5">Back</button>
