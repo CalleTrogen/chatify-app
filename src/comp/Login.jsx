@@ -86,12 +86,6 @@ function Login() {
                     </Alert>
                 )}
             </>
-            {/* {isAuthed && (<h1 className="text-white font-bold mt-[30vh]">Du loggas nu in... </h1>)}
-            {showAlert && (
-                <Alert className="w-50 mx-auto">
-                    Username or password couldn't be found
-                </Alert>
-            )} */}
         </div>
     )
 }
