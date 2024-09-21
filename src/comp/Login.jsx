@@ -76,7 +76,7 @@ function Login() {
             </form>
             <>
                 {isAuthed && (
-                    <h1 className="text-white font-bold -">Du loggas nu in...</h1>
+                    <h1 className="bg-green-500 text-white text-center p-4 rounded shadow-md w-full max-w-sm">Du loggas nu in...</h1>
                 )}
             </>
             <>
