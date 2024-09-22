@@ -23,6 +23,11 @@ function Register() {
 
     //Fetch request för att registrerar användare
     const handleRegister = () => {
+        if (!username || !password || !email) {
+            alert('Please fill in all required fields: username, password, and email.');
+            return;
+        }
+
         fetch('https://chatify-api.up.railway.app/auth/register', {
             method: 'POST',
             headers: {
