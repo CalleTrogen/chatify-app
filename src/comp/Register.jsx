@@ -28,6 +28,10 @@ function Register() {
             setShowAlert(true);
             return;
         }
+        if (!avatarUrl) {
+            setShowAlert(true);  // Show alert if no avatar is selected
+            return;
+        }
 
         fetch('https://chatify-api.up.railway.app/auth/register', {
             method: 'POST',
@@ -122,7 +126,15 @@ function Register() {
             <h2 className="p-5 text-2xl">Please select an avatar:</h2>
             <div className="flex flex-row gap-x-5 justify-center">
                 {avatars.map((url, index) => (
-                    <img key={index} src={url} alt={`Avatar ${index + 1}`} className="cursor-pointer" onClick={() => setAvatarUrl(url)} />
+                    <img
+                        key={index}
+                        src={url}
+                        /* alt={`Avatar ${index + 1}`} */
+                        alt={`Avatar ${index + 1}`}
+                        className={`cursor-pointer border-4 ${avatarUrl === url ? 'border-blue-500' : 'border-transparent'
+                            } rounded-full`}
+                        /*  className="cursor-pointer" */
+                        onClick={() => setAvatarUrl(url)} />
                 ))}
             </div>
             <div className="mt-5">
@@ -135,6 +147,13 @@ function Register() {
                 {showAlert && (
                     <div className="bg-red-500 text-white text-center p-5 mt-5 rounded shadow-md w-6/12 mx-auto">
                         Missing username, password or email address.
+                    </div>
+                )}
+            </>
+            <>
+                {showAlert && (
+                    <div className="bg-red-500 text-white text-center p-5 mt-3 rounded shadow-md w-6/12 mx-auto">
+                        Please select an avatar to continue.
                     </div>
                 )}
             </>
