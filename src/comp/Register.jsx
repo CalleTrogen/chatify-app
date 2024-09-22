@@ -7,6 +7,7 @@ function Register() {
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
     const [avatarUrl, setAvatarUrl] = useState('');
+    const [showAlert, setShowAlert] = useState(false);
     const avatars = Array.from({ length: 3 }, (_, index) =>
         `https://i.pravatar.cc/150?img=${index + 1}`
     );
@@ -24,7 +25,7 @@ function Register() {
     //Fetch request för att registrerar användare
     const handleRegister = () => {
         if (!username || !password || !email) {
-            alert('Please fill in all required fields: username, password, and email.');
+            setShowAlert(true);
             return;
         }
 
@@ -44,12 +45,23 @@ function Register() {
         })
             .then(res => res.json())
             .then(data => {
-                setJwtToken(data.token); //TODO: lägg till i localStorage eller sessionStorage.
+                setJwtToken(data.token);
                 console.log(data.token);
-                //TODO: Flytta rad 40 till 'Logga in' komponenten. 
+
             })
-            .catch(err => console.error('Registration failed:', err));
+        /* .catch(err => console.error('Registration failed:', err)); */
+        setShowAlert(true);  // Show alert on fetch failure
+        console.error('Registration failed:', err);
     };
+
+    useEffect(() => {
+        if (showAlert) {
+            const timer = setTimeout(() => {
+                setShowAlert(false); // Hide the alert after 3 seconds
+            }, 5000);
+            return () => clearTimeout(timer); // Clean up the timer
+        }
+    }, [showAlert]);
 
     return (
         <>
@@ -119,6 +131,13 @@ function Register() {
                 </NavLink>
                 <button onClick={handleRegister} className="bg-blue-700 text-white font-bold py-2 px-4 mt-2 mb-5 m-3">Register</button>
             </div>
+            <>
+                {showAlert && (
+                    <div className="bg-red-500 text-white text-center p-5 mt-5 rounded shadow-md w-6/12 mx-auto">
+                        Missing username, password or email address.
+                    </div>
+                )}
+            </>
         </>
     )
 }
