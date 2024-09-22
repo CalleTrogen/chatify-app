@@ -38,9 +38,9 @@ function Login() {
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen">
-            <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 mt-8 w-full max-w-sm">
+            <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-full max-w-sm">
                 <h1 className="text-5xl text-gray-700">🔒 Log in</h1><br></br>
-                <p className="text-gray-700">Welcome! Please put in your log in information below.</p><br></br>
+                <p className="text-gray-700 text-center mb-6">Welcome! Please put in your log in information below.</p><br></br>
                 <div className="mb-4">
                     <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">
                         👤 Username:
