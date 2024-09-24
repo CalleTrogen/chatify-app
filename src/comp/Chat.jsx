@@ -107,6 +107,29 @@ const AuthComponent = () => {
         }
     };
 
+    const deleteMessage = async (messageId) => {
+        const jwt = sessionStorage.getItem('jwt');  // Get the JWT from sessionStorage
+        try {
+            const response = await fetch(`https://chatify-api.up.railway.app/messages/{msgId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: 'Bearer ' + jwt  // Authorization header
+                },
+            });
+
+            if (response.ok) {
+                // Remove the deleted message from the local state
+                setMessages((prevMessages) => prevMessages.filter(msg => msg.id !== messageId));
+            } else {
+                console.error('Failed to delete message:', response.statusText);
+            }
+        } catch (error) {
+            console.error('Error deleting message:', error);
+        }
+    };
+
+
     return (
         <div>
             {isAuthed ? (
@@ -139,7 +162,7 @@ const AuthComponent = () => {
                     <div className="space-y-4 w-full">
                         {messages && messages.length > 0 ? (
                             messages.map((msg, index1) => (
-                                <div key={index1} className="flex space-x-4">
+                                <div key={index1} className="flex justify-between space-x-4">
                                     <div className="max-w-xs p-4 rounded-lg bg-gray-100 flex flex-row space-x-2 items-center">
                                         <img
                                             src={decodedJwt?.avatar || '/default-avatar.png'}
@@ -151,6 +174,13 @@ const AuthComponent = () => {
                                         </strong>
                                         <p className="text-gray-700">{msg.text}</p>
                                     </div>
+                                    {/* Delete Button */}
+                                    <button
+                                        className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                                        onClick={() => deleteMessage(msg.id)}  // Call deleteMessage with the message ID
+                                    >
+                                        Delete
+                                    </button>
                                 </div>
                             ))
                         ) : (
@@ -161,7 +191,7 @@ const AuthComponent = () => {
             </div>
 
             {/* New Message Form */}
-            {/*<div className="form-control w-full mt-20 mx-auto">
+            <div className="form-control w-full mt-20 mx-auto">
                 <div className="label items-center">
                     <span className="label-text">New Message</span>
                 </div>
@@ -170,7 +200,7 @@ const AuthComponent = () => {
                     placeholder="Type your message here"
                     className="input input-bordered w-full mt-4"
                 />
-                <div className="label justify-end mt-4">
+                {/* <div className="label justify-end mt-4">
                     <NavLink to='/' className="p-5">
                         <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4">
                             Back
@@ -179,9 +209,11 @@ const AuthComponent = () => {
                     <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4">
                         Submit
                     </button>
-                </div>
-            </div>*/}
-            <div className="form-control w-full mt-20 mx-auto">
+                </div> */}
+            </div>
+
+            {/*New Message Form */}
+            {/* <div className="form-control w-full mt-20 mx-auto">
                 <div className="label items-center">
                     <span className="label-text">New Message</span>
                 </div>
@@ -191,22 +223,25 @@ const AuthComponent = () => {
                     className="input input-bordered w-full mt-4"
                     value={newMessage}  // Bind the input field to the newMessage state
                     onChange={(e) => setNewMessage(e.target.value)}  // Update newMessage state on input change
-                />
-                <div className="label justify-end mt-4">
-                    <NavLink to="/" className="p-5">
-                        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4">
-                            Back
-                        </button>
-                    </NavLink>
-                    <button
-                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4"
-                        onClick={sendMessage}  // Trigger sendMessage on click
-                    >
-                        Submit
+                /> */}
+
+
+            <div className="label justify-end mt-4">
+                <NavLink to="/" className="p-5">
+                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4">
+                        Back
                     </button>
-                </div>
+                </NavLink>
+                <button
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4"
+                    onClick={sendMessage}  // Trigger sendMessage on click
+                >
+                    Submit
+                </button>
             </div>
-        </div >
+        </div>
+
+
     );
 };
 
