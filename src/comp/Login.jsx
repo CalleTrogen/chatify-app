@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react"
 import { NavLink, useNavigate } from "react-router-dom";
-
+import { Alert } from 'react-bootstrap';
 
 function Login() {
     const [jwtToken, setJwtToken] = useState(null);
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [isAuthed, setIsAuthed] = useState(false);
+    const [showAlert, setShowAlert] = useState(false);
     const navigate = useNavigate();
     const handleLogin = async () => {
 
@@ -25,7 +26,7 @@ function Login() {
             setJwtToken(data.token);
             sessionStorage.setItem('jwt', data.token);
             setIsAuthed(true);
-
+            setShowAlert(false);
             // Lyckad inlogg
             setTimeout(() => {
                 navigate('/chat');
@@ -33,15 +34,16 @@ function Login() {
         } else {
             // Hantera fel vid inloggning
             console.log('Log in failed');
+            setShowAlert(true);
         }
     };
 
 
     return (
-        <div className="flex flex-row justify-center">
-            <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <div className="flex flex-col items-center justify-center min-h-screen">
+            <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-full max-w-sm">
                 <h1 className="text-5xl text-gray-700">🔒 Log in</h1><br></br>
-                <p className="text-gray-700">Welcome! Please put in your log in information below.</p><br></br>
+                <p className="text-gray-700 text-center mb-6">Welcome! Please put in your log in information below.</p><br></br>
                 <div className="mb-4">
                     <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">
                         👤 Username:
@@ -65,7 +67,6 @@ function Login() {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}>
                     </input>
-
                 </div>
                 <div className="flex items-center justify-between">
                     <NavLink to='/'>
@@ -76,7 +77,18 @@ function Login() {
                     </button>
                 </div>
             </form>
-            {isAuthed && (<h1 className="text-white font-bold">Du loggas nu in... </h1>)}
+            <>
+                {isAuthed && (
+                    <h1 className="bg-green-500 text-white text-center p-4 rounded shadow-md w-full max-w-sm">You are logging in...</h1>
+                )}
+            </>
+            <>
+                {showAlert && (
+                    <Alert className="bg-red-500 text-white text-center p-4 rounded shadow-md w-full max-w-sm">
+                        Username or password couldn't be found
+                    </Alert>
+                )}
+            </>
         </div>
     )
 }

@@ -46,6 +46,7 @@ const AuthComponent = () => {
 
 
     const [messages, setMessages] = useState([]);
+    const [newMessage, setNewMessage] = useState('');
     const fetchMessages = async () => {
 
         try {
@@ -53,7 +54,7 @@ const AuthComponent = () => {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    Authorization: 'Bearer ' + jwt
+                    Authorization: 'Bearer ' + sessionStorage.getItem('jwt')
                 },
             });
             const data = await response.json();
@@ -64,23 +65,53 @@ const AuthComponent = () => {
         }
     };
 
-    // Skicka nytt meddelande 
-    /* const [newMessage, setNewMessage] = useState([]);
+    // Skicka nytt meddelande
     const sendMessage = async () => {
-        if (!newMessage.trim()) return;
+        if (!newMessage.trim()) return;  // Förhindra att skicka tomma input fields.
 
         try {
-            const response = await fetch(``, {
+            const response = await fetch(`https://chatify-api.up.railway.app/messages`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    Authorization: 'Bearer ' + jwt
+                    Authorization: 'Bearer ' + jwt  // Säkerställer att JWT token är skickat korrekt.
                 },
-                body: JSON.stringify({
-                    text: newMessage,
-                }),
-            }); */
+                body: JSON.stringify({ text: newMessage }),  // Skickar det nya textmeddelandet
+            });
 
+            if (response.ok) {
+                const data = await response.json();
+                console.log('Message sent:', data);
+                setNewMessage('');  // Renskar input field efter att meddelandet har skickas.
+            } else {
+                console.error('Failed to send message:', response.statusText);
+            }
+        } catch (error) {
+            console.error('Error sending message:', error);
+        }
+    };
+
+    const deleteMessage = async (messageId) => {
+        const jwt = sessionStorage.getItem('jwt');  // Hämtar JWT från sessionStorage
+        try {
+            const response = await fetch(`https://chatify-api.up.railway.app/messages/${messageId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: 'Bearer ' + jwt  // Authorization i headern
+                },
+            });
+
+            if (response.ok) {
+                // Tar bort 'deleted message' från local state
+                setMessages((prevMessages) => prevMessages.filter(msg => msg.id !== messageId));
+            } else {
+                console.error('Failed to delete message:', response.statusText);
+            }
+        } catch (error) {
+            console.error('Error deleting message:', error);
+        }
+    };
 
     return (
         <div>
@@ -94,40 +125,83 @@ const AuthComponent = () => {
             ) : (
                 <h1>Couldn't be authenticated. Please try to log in again.</h1>
             )}
-            <h2 className="flex items-start space-x-4 mb-5 text-base">Message history:</h2>
-            {fakeChat.map((msg, index) => (
-                <div key={index} className="flex items-start space-x-4 p-1 w-1/2">
-                    <img src={msg.avatar} alt={`${msg.username}'s avatar`} className="w-6 h-6 rounded-full" />
-                    <strong>{msg.username}:&nbsp;</strong> {msg.text}
+
+            <div className="flex space-x-4 items-start w-full">
+                {/* Message */}
+                <div className="w-1/2">
+                    <h2 className="mb-5 text-base">Message history:</h2>
+                    {fakeChat.map((msg, index) => (
+                        <div key={index} className="flex items-start space-x-4 p-1">
+                            <img src={msg.avatar} alt={`${msg.username}'s avatar`} className="w-6 h-6 rounded-full" />
+                            <strong>{msg.username}:&nbsp;</strong> {msg.text}
+                        </div>
+                    ))}
                 </div>
-            ))}
-            <h2 className="flex text-base justify-end w-1/2">Your messages:</h2>
-            <div className="space-y-4 w-1/2">
-                {messages.length > 0 ? (
-                    messages.map((msg, index1) => (
-                        <div key={index1} className="flex justify-end space-x-4">
-                            <div className="max-w-xs p-4 rounded-lg bg-gray-100 flex flex-row space-x-2">
-                                <strong className="text-lg text-gray-500">{decodedJwt.user}:<img src={decodedJwt.avatar} className="w-6 h-6 float-left rounded-full" /></strong>
-                                <p className="text-gray-700">{msg.text}</p>
-                            </div>
-                        </div>
-                    ))
-                ) : (
-                    <label className="form-control w-full max-w-xs">
-                        <div className="label items-center">
-                            <span className="label-text">New Message</span>
-                        </div>
-                        <input type="text" placeholder="Type your message here" className="input input-bordered w-full max-w-xs" />
-                        <div className="label justify-end">
-                            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mt-3">Submit</button>
-                        </div>
-                    </label>
-                )}
+
+                {/* Your Messages Section */}
+                <div className="w-1/2 flex flex-col items-center justify-center">
+                    <h2 className="mb-5 text-base">Your messages:</h2>
+
+                    <div className="space-y-4 w-full">
+                        {messages && messages.length > 0 ? (
+                            messages.map((msg, index1) => (
+                                <div key={index1} className="flex justify-between space-x-4">
+                                    <div className="max-w-xs p-4 rounded-lg bg-gray-100 flex flex-row space-x-2 items-center">
+                                        <img
+                                            src={decodedJwt?.avatar || '/default-avatar.png'}
+                                            alt="User Avatar"
+                                            className="w-6 h-6 rounded-full"
+                                        />
+                                        <strong className="text-lg text-gray-500">
+                                            {decodedJwt?.user || 'Unknown'}:
+                                        </strong>
+                                        <p className="text-gray-700">{msg.text}</p>
+                                    </div>
+                                    {/* Delete Button */}
+                                    <button
+                                        className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                                        onClick={() => deleteMessage(msg.id)}  // Hämtar deleteMessage med message ID.
+                                    >
+                                        Delete
+                                    </button>
+                                </div>
+                            ))
+                        ) : (
+                            <p>No messages found.</p>
+                        )}
+                    </div>
+                </div>
             </div>
-            <NavLink to='/' className="p-5">
-                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mt-5">Back</button>
-            </NavLink>
-        </div >
+
+            {/* New Message Form */}
+            <div className="form-control w-full mt-20 mx-auto">
+                <div className="label items-center">
+                    <span className="label-text">New Message</span>
+                </div>
+                <input
+                    type="text"
+                    placeholder="Type your message here"
+                    className="input input-bordered w-full mt-4"
+                />
+            </div>
+
+
+            <div className="label justify-end mt-4">
+                <NavLink to="/" className="p-5">
+                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4">
+                        Back
+                    </button>
+                </NavLink>
+                <button
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4"
+                    onClick={sendMessage}  // Skickar meddelande
+                >
+                    Submit
+                </button>
+            </div>
+        </div>
+
+
     );
 };
 
