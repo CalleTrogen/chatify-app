@@ -3,6 +3,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { Alert } from 'react-bootstrap';
 
 function Login() {
+    const [jwtToken, setJwtToken] = useState(null);
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [isAuthed, setIsAuthed] = useState(false);
@@ -21,7 +22,8 @@ function Login() {
         if (response.ok) {
             const data = await response.json();
 
-            // Sparar JWT i sessionStorage
+            // Sparar JWT i state & sessionStorage
+            setJwtToken(data.token);
             sessionStorage.setItem('jwt', data.token);
             setIsAuthed(true);
             setShowAlert(false);
@@ -35,6 +37,7 @@ function Login() {
             setShowAlert(true);
         }
     };
+
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen">
