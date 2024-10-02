@@ -5,7 +5,6 @@ import Register from './comp/Register';
 import Login from './comp/Login';
 import Chat from './comp/Chat';
 import ProtectedRoute from './comp/ProtectedRoute';
-/* import 'bootstrap/dist/css/bootstrap.min.css'; */
 
 function App() {
   return (

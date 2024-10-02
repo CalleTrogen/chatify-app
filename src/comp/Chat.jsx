@@ -65,40 +65,24 @@ const AuthComponent = () => {
         }
     };
 
-    // Skicka nytt meddelande 
-    /* const [newMessage, setNewMessage] = useState([]);
+    // Skicka nytt meddelande
     const sendMessage = async () => {
-        if (!newMessage.trim()) return;
+        if (!newMessage.trim()) return;  // Förhindra att skicka tomma input fields.
 
         try {
             const response = await fetch(`https://chatify-api.up.railway.app/messages`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    Authorization: 'Bearer ' + sessionStorage.getItem('jwt')
+                    Authorization: 'Bearer ' + jwt  // Säkerställer att JWT token är skickat korrekt.
                 },
-                body: JSON.stringify({
-                    text: newMessage,
-                }),
-            }); */
-
-    const sendMessage = async () => {
-        if (!newMessage.trim()) return;  // Prevent sending empty or whitespace-only messages
-
-        try {
-            const response = await fetch(`https://chatify-api.up.railway.app/messages`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: 'Bearer ' + jwt  // Make sure the JWT token is correctly passed
-                },
-                body: JSON.stringify({ text: newMessage }),  // Send the new message as text
+                body: JSON.stringify({ text: newMessage }),  // Skickar det nya textmeddelandet
             });
 
             if (response.ok) {
                 const data = await response.json();
                 console.log('Message sent:', data);
-                setNewMessage('');  // Clear the input field after sending the message
+                setNewMessage('');  // Renskar input field efter att meddelandet har skickas.
             } else {
                 console.error('Failed to send message:', response.statusText);
             }
@@ -108,7 +92,7 @@ const AuthComponent = () => {
     };
 
     const deleteMessage = async (messageId) => {
-        const jwt = sessionStorage.getItem('jwt');  // Get the JWT from sessionStorage
+        const jwt = sessionStorage.getItem('jwt');  // Hämtar JWT från sessionStorage
         try {
             const response = await fetch(`https://chatify-api.up.railway.app/messages/{msgId}`, {
                 method: 'DELETE',
@@ -119,7 +103,7 @@ const AuthComponent = () => {
             });
 
             if (response.ok) {
-                // Remove the deleted message from the local state
+                // Tar bort 'deleted message' från local state
                 setMessages((prevMessages) => prevMessages.filter(msg => msg.id !== messageId));
             } else {
                 console.error('Failed to delete message:', response.statusText);
@@ -200,30 +184,7 @@ const AuthComponent = () => {
                     placeholder="Type your message here"
                     className="input input-bordered w-full mt-4"
                 />
-                {/* <div className="label justify-end mt-4">
-                    <NavLink to='/' className="p-5">
-                        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4">
-                            Back
-                        </button>
-                    </NavLink>
-                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4">
-                        Submit
-                    </button>
-                </div> */}
             </div>
-
-            {/*New Message Form */}
-            {/* <div className="form-control w-full mt-20 mx-auto">
-                <div className="label items-center">
-                    <span className="label-text">New Message</span>
-                </div>
-                <input
-                    type="text"
-                    placeholder="Type your message here"
-                    className="input input-bordered w-full mt-4"
-                    value={newMessage}  // Bind the input field to the newMessage state
-                    onChange={(e) => setNewMessage(e.target.value)}  // Update newMessage state on input change
-                /> */}
 
 
             <div className="label justify-end mt-4">

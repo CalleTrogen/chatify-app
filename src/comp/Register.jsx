@@ -35,7 +35,7 @@ function Register() {
             setShowFieldAlert(false); // Gömmer alert om alla fält är ifyllda
         }
         console.log('Has error', hasError);
-        // Check if avatar is selected
+        // Tittar om en avatar är vald eller ej.
         if (!avatarUrl) {
             setShowAvatarAlert(true);
             hasError = true;
@@ -65,7 +65,6 @@ function Register() {
             .then(res => res.json())
             .then(data => {
                 console.log('JWT Token:', data.token);
-                // Handle success: Redirect or do something
             })
             .catch(err => {
                 console.error('Registration failed:', err);
@@ -73,13 +72,13 @@ function Register() {
     };
 
     useEffect(() => {
-        // Auto-hide alerts after 5 seconds
+        // Gömmer alert efter 5 sekunder.
         if (showFieldAlert || showAvatarAlert) {
             const timer = setTimeout(() => {
                 setShowFieldAlert(false);
                 setShowAvatarAlert(false);
             }, 5000);
-            return () => clearTimeout(timer); // Cleanup timer
+            return () => clearTimeout(timer);
         }
     }, [showFieldAlert, showAvatarAlert]);
 
@@ -122,7 +121,7 @@ function Register() {
                         alt={`Avatar ${index + 1}`}
                         className={`cursor-pointer border-4 ${avatarUrl === url ? 'border-blue-500' : 'border-transparent'
                             } rounded-full`}
-                        onClick={() => setAvatarUrl(url)} // Set selected avatar
+                        onClick={() => setAvatarUrl(url)} // Sätter avatarn
                     />
                 ))}
             </div>
@@ -133,14 +132,14 @@ function Register() {
                 <button onClick={handleRegister} className="bg-blue-700 text-white font-bold py-2 px-4 mt-2 mb-5 m-3">Register</button>
             </div>
 
-            {/* Show alert for missing form fields */}
+            {/* Visar alert för missat inputfält */}
             {showFieldAlert && (
                 <div className="bg-red-500 text-white text-center p-5 mt-5 rounded shadow-md w-6/12 mx-auto">
                     Missing username, password, or email address.
                 </div>
             )}
 
-            {/* Show alert for missing avatar selection */}
+            {/* Visar alert för missad avatar */}
             {showAvatarAlert && (
                 <div className="bg-red-500 text-white text-center p-5 mt-3 rounded shadow-md w-6/12 mx-auto">
                     Please select an avatar to continue.
