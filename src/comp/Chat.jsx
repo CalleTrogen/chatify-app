@@ -44,11 +44,10 @@ const AuthComponent = () => {
         fetchMessages();
     }, []);
 
-
     const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState('');
     const fetchMessages = async () => {
-
+        // Hämtar befintliga meddelanden 
         try {
             const response = await fetch(`https://chatify-api.up.railway.app/messages`, {
                 method: 'GET',
@@ -67,22 +66,26 @@ const AuthComponent = () => {
 
     // Skicka nytt meddelande
     const sendMessage = async () => {
-        if (!newMessage.trim()) return;  // Förhindra att skicka tomma input fields.
+        console.log("sendMessage called");  // Logga för att varifiera att en funktion körs.
+
+        if (!newMessage.trim()) return;  // Hindrar från att skicka ett tomt meddelande.
 
         try {
             const response = await fetch(`https://chatify-api.up.railway.app/messages`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    Authorization: 'Bearer ' + jwt  // Säkerställer att JWT token är skickat korrekt.
+                    Authorization: 'Bearer ' + jwt  // Säkertställer att JWT skickas korrekt.
                 },
-                body: JSON.stringify({ text: newMessage }),  // Skickar det nya textmeddelandet
+                body: JSON.stringify({ text: newMessage }),  // Skickar new message text.
             });
 
             if (response.ok) {
                 const data = await response.json();
-                console.log('Message sent:', data);
-                setNewMessage('');  // Renskar input field efter att meddelandet har skickas.
+                console.log('Message sent:', data);  // Log the response to the console
+
+                setMessages((prevMessages) => [...prevMessages, data]);  // Lägger nytt meddelande i listan.
+                setNewMessage('');  // Clear input field efter att ett meddelande har skickats.
             } else {
                 console.error('Failed to send message:', response.statusText);
             }
@@ -91,6 +94,7 @@ const AuthComponent = () => {
         }
     };
 
+
     const deleteMessage = async (messageId) => {
         const jwt = sessionStorage.getItem('jwt');  // Hämtar JWT från sessionStorage
         try {
@@ -98,7 +102,7 @@ const AuthComponent = () => {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
-                    Authorization: 'Bearer ' + jwt  // Authorization i headern
+                    Authorization: 'Bearer ' + jwt  // Authorization i headern.
                 },
             });
 
@@ -141,7 +145,6 @@ const AuthComponent = () => {
                 {/* Your Messages Section */}
                 <div className="w-1/2 flex flex-col items-center justify-center">
                     <h2 className="mb-5 text-base">Your messages:</h2>
-
                     <div className="space-y-4 w-full">
                         {messages && messages.length > 0 ? (
                             messages.map((msg, index1) => (
@@ -180,24 +183,23 @@ const AuthComponent = () => {
                 </div>
                 <input
                     type="text"
+                    value={newMessage}  // Binder input värdet till newMessage state.
+                    onChange={(e) => setNewMessage(e.target.value)}  // Uppdaterar state med input värde.
                     placeholder="Type your message here"
                     className="input input-bordered w-full mt-4"
                 />
-            </div>
-
-
-            <div className="label justify-end mt-4">
-                <NavLink to="/" className="p-5">
-                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4">
-                        Back
-                    </button>
-                </NavLink>
                 <button
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4"
-                    onClick={sendMessage}  // Skickar meddelande
+                    className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 mt-4"
+                    onClick={sendMessage}  // Kallar på sendMessage funktionen när knappar har tryckts.
                 >
                     Submit
                 </button>
+                {/* Tillbaka knapp */}
+                <NavLink to="/" className="w-full">
+                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 w-full mt-4">
+                        Back
+                    </button>
+                </NavLink>
             </div>
         </div>
 
