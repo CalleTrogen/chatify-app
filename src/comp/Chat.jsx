@@ -94,11 +94,11 @@ const AuthComponent = () => {
     const deleteMessage = async (messageId) => {
         const jwt = sessionStorage.getItem('jwt');  // Hämtar JWT från sessionStorage
         try {
-            const response = await fetch(`https://chatify-api.up.railway.app/messages/{msgId}`, {
+            const response = await fetch(`https://chatify-api.up.railway.app/messages/${messageId}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
-                    Authorization: 'Bearer ' + jwt  // Authorization header
+                    Authorization: 'Bearer ' + jwt  // Authorization i headern
                 },
             });
 
@@ -112,7 +112,6 @@ const AuthComponent = () => {
             console.error('Error deleting message:', error);
         }
     };
-
 
     return (
         <div>
@@ -161,7 +160,7 @@ const AuthComponent = () => {
                                     {/* Delete Button */}
                                     <button
                                         className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-                                        onClick={() => deleteMessage(msg.id)}  // Call deleteMessage with the message ID
+                                        onClick={() => deleteMessage(msg.id)}  // Hämtar deleteMessage med message ID.
                                     >
                                         Delete
                                     </button>
